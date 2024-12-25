@@ -5,6 +5,7 @@ from aiogram.filters.command import Command
 from config import *
 from aiogram import F
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from handlers.funcs import *
 
 # Включаем логирование, чтобы не пропустить важные сообщения
 logging.basicConfig(level=logging.INFO)
@@ -47,9 +48,10 @@ async def cmd_start(message: types.Message):
     await message.answer("Куда держим путь?", reply_markup=keyboard)
 
 
-@dp.message(F.text.lower() == "с пюрешкой")
+@dp.message(F.text.lower() == "минск - борисов")
 async def with_puree(message: types.Message):
-    await message.reply("Отличный выбор!")
+    await message.reply(get_schedule(get_content('minsk', 'borisov', '25.12.2024')),
+                        reply_markup=types.ReplyKeyboardRemove(), )
 
 
 @dp.message(F.text.lower() == "без пюрешки")
